@@ -180,6 +180,7 @@ const esportVision = new Plateforme('Esport Vision');
 esportVision.chargerMatchs(calendrierMatchs);
 esportVision.afficherCalendrier();
 
+console.log("-------------------------------------------------------------------------------------------")
 console.log("Matchs de Valorant :", esportVision.getMatchsParJeu('Valorant'));
 console.log("Matchs Risqués :", esportVision.getMatchsRisques());
 console.log("Match par ID (LFL_KC_SLY) :", esportVision.getMatchById('LFL_KC_SLY'));
@@ -188,21 +189,23 @@ console.log("Match par ID (LFL_GO_BDS) :", esportVision.getMatchById('LFL_GO_BDS
 console.log("Match par ID (LFL_KC_M8) :", esportVision.getMatchById('LFL_KC_M8'));
 console.log("Match par ID (INEXISTANT) :", esportVision.getMatchById('INEXISTANT')); // Devrait retourner undefined
 // Test de la méthode getFavori() pour chaque match
+console.log("-------------------------------------------------------------------------------------------")
 esportVision.matchs.forEach(match => {
     console.log(`Le favori du match ${match.equipeA} vs ${match.equipeB} est : ${match.getFavori()}`);
 })
 
+console.log("-------------------------------------------------------------------------------------------")
 // test de la méthode simulerResultat pour chaque match
 esportVision.matchs.forEach(match => {
     esportVision.simulerResultat(match.id);
 });
-
 // Affichage des résultats après simulation
 esportVision.matchs.forEach(match => {
     console.log(`Match: ${match.equipeA} vs ${match.equipeB}, Statut: ${match.statut}, Résultat: ${match.resultat}`);
 });
 
 // Test de la méthode getStatsEquipe pour une équipe
+console.log("-------------------------------------------------------------------------------------------")
 console.log("Statistiques de l'équipe 'Karmine Corp' :", esportVision.getStatsEquipe('Karmine Corp'));
 console.log("Statistiques de l'équipe 'Solary' :", esportVision.getStatsEquipe('Solary'));
 console.log("Statistiques de l'équipe 'Team Vitality' :", esportVision.getStatsEquipe('Team Vitality'));
