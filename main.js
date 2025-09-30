@@ -140,7 +140,6 @@ class Plateforme {
         const match = this.getMatchById(idMatch);
         if (match && match.statut === 'À venir') {
             const randomValue = Math.random();
-            let gagnant;
             if (randomValue < match.probabiliteA) {
                 match.statut = 'Terminé';
                 match.resultat = match.equipeA;
