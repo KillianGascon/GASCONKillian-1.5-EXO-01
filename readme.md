@@ -16,8 +16,8 @@ Ce projet est une plateforme de gestion et d'analyse de matchs d'esport, écrite
 ### 1. Cloner le dépôt
 
 ```bash
-git clone https://github.com/<ton-utilisateur>/esport-vision.git
-cd esport-vision
+git clone https://github.com/KillianGascon/GASCONKillian-1.5-EXO-01.git
+cd GASCONKillian-1.5-EXO-01
 ```
 
 2. Ouvrir le projet
