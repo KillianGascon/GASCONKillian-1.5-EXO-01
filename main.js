@@ -53,6 +53,7 @@ class Match {
         this.equipeB = equipeB;
         this.probabiliteA = probabiliteA;
         this.statut = statut;
+        this.resultat = null;
     }
 
     getFavori() {
@@ -87,7 +88,8 @@ class Plateforme {
                 matchData.equipeA,
                 matchData.equipeB,
                 matchData.probabiliteA,
-                matchData.statut
+                matchData.statut,
+                matchData.resultat
             );
             this.matchs.push(match);
         })
@@ -127,6 +129,44 @@ class Plateforme {
     getMatchById(id) {
         return this.matchs.find(match => match.id === id);
     }
+
+    //Si vous avez terminé et que vous souhaitez aller plus loin, essayez d'implémenter ces fonctionnalités :
+//
+// Ajoutez une méthode simulerResultat(idMatch) à la Plateforme. Elle trouve le match, utilise Math.random() et
+// les probabilités pour désigner un vainqueur, puis change le statut du match en "Terminé"
+// en y ajoutant une propriété resultat avec le nom du gagnant.
+
+    simulerResultat(idMatch) {
+        const match = this.getMatchById(idMatch);
+        if (match && match.statut === 'À venir') {
+            const randomValue = Math.random();
+            let gagnant;
+            if (randomValue < match.probabiliteA) {
+                match.statut = 'Terminé';
+                match.resultat = match.equipeA;
+            } else {
+                match.statut = 'Terminé';
+                match.resultat = match.equipeB;
+            }
+        }
+    }
+
+// Ajoutez une méthode getStatsEquipe(nomEquipe). Elle doit retourner un objet contenant le nombre de matchs joués par
+// l'équipe et son taux de victoire (basé sur les matchs simulés).
+    getStatsEquipe(nomEquipe) {
+        const matchsJoues = this.matchs.filter(match =>
+            (match.equipeA === nomEquipe || match.equipeB === nomEquipe) && match.statut === 'Terminé'
+        );
+        const victoires = matchsJoues.filter(match =>
+            (match.equipeA === nomEquipe && match.resultat === match.equipeA) ||
+            (match.equipeB === nomEquipe && match.resultat === match.equipeB)
+        ).length;
+        const tauxVictoire = matchsJoues.length > 0 ? (victoires / matchsJoues.length) * 100 : 0;
+        return {
+            matchsJoues: matchsJoues.length,
+            tauxVictoire: tauxVictoire.toFixed(2) + '%'
+        };
+    }
 }
 
 // À la fin de votre fichier, écrivez le script qui utilisera vos classes pour faire fonctionner le système.
@@ -153,7 +193,21 @@ esportVision.matchs.forEach(match => {
     console.log(`Le favori du match ${match.equipeA} vs ${match.equipeB} est : ${match.getFavori()}`);
 })
 
-//Si vous avez terminé et que vous souhaitez aller plus loin, essayez d'implémenter ces fonctionnalités :
-//
-// Ajoutez une méthode simulerResultat(idMatch) à la Plateforme. Elle trouve le match, utilise Math.random() et les probabilités pour désigner un vainqueur, puis change le statut du match en "Terminé" en y ajoutant une propriété resultat avec le nom du gagnant.
-// Ajoutez une méthode getStatsEquipe(nomEquipe). Elle doit retourner un objet contenant le nombre de matchs joués par l'équipe et son taux de victoire (basé sur les matchs simulés).
+// test de la méthode simulerResultat pour chaque match
+esportVision.matchs.forEach(match => {
+    esportVision.simulerResultat(match.id);
+});
+
+// Affichage des résultats après simulation
+esportVision.matchs.forEach(match => {
+    console.log(`Match: ${match.equipeA} vs ${match.equipeB}, Statut: ${match.statut}, Résultat: ${match.resultat}`);
+});
+
+// Test de la méthode getStatsEquipe pour une équipe
+console.log("Statistiques de l'équipe 'Karmine Corp' :", esportVision.getStatsEquipe('Karmine Corp'));
+console.log("Statistiques de l'équipe 'Solary' :", esportVision.getStatsEquipe('Solary'));
+console.log("Statistiques de l'équipe 'Team Vitality' :", esportVision.getStatsEquipe('Team Vitality'));
+console.log("Statistiques de l'équipe 'Mandatory' :", esportVision.getStatsEquipe('Mandatory'));
+console.log("Statistiques de l'équipe 'Gentle Mates' :", esportVision.getStatsEquipe('Gentle Mates'));
+console.log("Statistiques de l'équipe 'BDS Academy' :", esportVision.getStatsEquipe('BDS Academy'));
+console.log("Statistiques de l'équipe 'Inexistante' :", esportVision.getStatsEquipe('Inexistante'));
