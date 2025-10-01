@@ -1,6 +1,12 @@
 
 # Esport Vision
 
+## Auteur
+
+Killian Gascon
+
+---
+
 Ce projet est une plateforme de gestion et d'analyse de matchs d'esport, écrite en JavaScript.
 
 ## Fonctionnalités
@@ -45,6 +51,4 @@ Le script affichera dans la console :
 - Les résultats simulés
 - Les statistiques de chaque équipe
 
-## Auteur
 
-Killian Gascon
